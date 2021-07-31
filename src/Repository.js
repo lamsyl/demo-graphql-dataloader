@@ -9,7 +9,7 @@ class Repository {
   constructor(dbConnection) {
     this.db = dbConnection;
     this.personDataLoader = new DataLoader(
-      (keys) => this.queryMultiplePersonByIDs(keys),
+      (keys) => { return Promise.all(keys.map(key => this.queryPersonByID(key))) },
       {
         cache: true,
       }

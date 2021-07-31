@@ -35,7 +35,7 @@ const resolvers = {
   //   },
   // },
 
-  // With dataloader. This resolves N+1 query problem by batch query.
+  // With trivial dataloader. This does NOT resolve N+1 problem but can deduplicate requests.
   Song: {
     id: (song) => song.id,
     title: (song) => song.title,
