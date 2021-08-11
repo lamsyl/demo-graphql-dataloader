@@ -49,7 +49,15 @@ WHERE id in (??)
 `;
     const args = [personIDs];
     debug("queryMultiplePersonByIDs", sql, args);
-    const result = await this.db.raw(sql, args);
+    const records = await this.db.raw(sql, args);
+    const idToPerson = {};
+    for (const record of records) {
+      idToPerson[record.id] = record;
+    }
+    const result = [];
+    for (const personID of personIDs) {
+      result.push(idToPerson[personID] ?? null);
+    }
     return result;
   }
 }
